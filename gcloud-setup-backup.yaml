@@ -1,0 +1,1095 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+        knative-operator'
+      sidecar.istio.io/inject: "false"
+    creationTimestamp: "2020-08-07T12:47:17Z"
+    generateName: knative-operator-d75c6c56f-
+    labels:
+      name: knative-operator
+      pod-template-hash: d75c6c56f
+    name: knative-operator-d75c6c56f-7svjg
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: knative-operator-d75c6c56f
+      uid: 616cc3a2-d06d-4ccc-aebd-ac181fea591d
+    resourceVersion: "258048"
+    selfLink: /api/v1/namespaces/default/pods/knative-operator-d75c6c56f-7svjg
+    uid: 5364ad33-196d-453a-99d0-3fe5b7c9f286
+  spec:
+    containers:
+    - env:
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      - name: SYSTEM_NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: METRICS_DOMAIN
+        value: knative.dev/operator
+      - name: CONFIG_LOGGING_NAME
+        value: config-logging
+      - name: CONFIG_OBSERVABILITY_NAME
+        value: config-observability
+      image: gcr.io/knative-releases/knative.dev/operator/cmd/operator@sha256:1aeef5503064204db1e8252dfd8d80eda46ce5d2ddb33998a6c6e19f5bb7a479
+      imagePullPolicy: IfNotPresent
+      name: knative-operator
+      ports:
+      - containerPort: 9090
+        name: metrics
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 100m
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: knative-operator-token-8rkft
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: gke-cluster-default-pool-d7fb3cd3-9xk0
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: knative-operator
+    serviceAccountName: knative-operator
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: knative-operator-token-8rkft
+      secret:
+        defaultMode: 420
+        secretName: knative-operator-token-8rkft
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2020-08-07T12:47:17Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2020-08-07T12:47:33Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2020-08-07T12:47:33Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2020-08-07T12:47:17Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://6fff46fcc57007db418030f62fc5388dec2070809b172f2eca094447d4b6c020
+      image: gcr.io/knative-releases/knative.dev/operator/cmd/operator@sha256:1aeef5503064204db1e8252dfd8d80eda46ce5d2ddb33998a6c6e19f5bb7a479
+      imageID: docker-pullable://gcr.io/knative-releases/knative.dev/operator/cmd/operator@sha256:1aeef5503064204db1e8252dfd8d80eda46ce5d2ddb33998a6c6e19f5bb7a479
+      lastState: {}
+      name: knative-operator
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2020-08-07T12:47:32Z"
+    hostIP: 10.166.0.8
+    phase: Running
+    podIP: 10.12.6.2
+    podIPs:
+    - ip: 10.12.6.2
+    qosClass: Burstable
+    startTime: "2020-08-07T12:47:17Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-08-07T12:43:52Z"
+    labels:
+      serving.knative.dev/route: helloworld-go
+    name: helloworld-go
+    namespace: default
+    ownerReferences:
+    - apiVersion: serving.knative.dev/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Route
+      name: helloworld-go
+      uid: 7532e3ec-bfe7-4896-8315-29487201b280
+    resourceVersion: "256697"
+    selfLink: /api/v1/namespaces/default/services/helloworld-go
+    uid: 6742b222-01d2-45ef-a6eb-61bbd11c90f1
+  spec:
+    externalName: cluster-local-gateway.istio-system.svc.cluster.local
+    sessionAffinity: None
+    type: ExternalName
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:32Z"
+    labels:
+      app: helloworld-go-2xvp8
+      networking.internal.knative.dev/serverlessservice: helloworld-go-2xvp8
+      networking.internal.knative.dev/serviceType: Public
+      serving.knative.dev/configuration: helloworld-go
+      serving.knative.dev/configurationGeneration: "1"
+      serving.knative.dev/revision: helloworld-go-2xvp8
+      serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go-2xvp8
+    namespace: default
+    ownerReferences:
+    - apiVersion: networking.internal.knative.dev/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ServerlessService
+      name: helloworld-go-2xvp8
+      uid: 52407c6d-4230-4632-95f9-83af23a571d0
+    resourceVersion: "256542"
+    selfLink: /api/v1/namespaces/default/services/helloworld-go-2xvp8
+    uid: c0667896-1e55-458a-80a0-fdadbb0d6ae7
+  spec:
+    clusterIP: 10.77.15.104
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8012
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:32Z"
+    labels:
+      app: helloworld-go-2xvp8
+      networking.internal.knative.dev/serverlessservice: helloworld-go-2xvp8
+      networking.internal.knative.dev/serviceType: Private
+      serving.knative.dev/configuration: helloworld-go
+      serving.knative.dev/configurationGeneration: "1"
+      serving.knative.dev/revision: helloworld-go-2xvp8
+      serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go-2xvp8-private
+    namespace: default
+    ownerReferences:
+    - apiVersion: networking.internal.knative.dev/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ServerlessService
+      name: helloworld-go-2xvp8
+      uid: 52407c6d-4230-4632-95f9-83af23a571d0
+    resourceVersion: "256538"
+    selfLink: /api/v1/namespaces/default/services/helloworld-go-2xvp8-private
+    uid: 0a5534d3-ad90-428a-81da-4aae42919442
+  spec:
+    clusterIP: 10.77.0.87
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8012
+    - name: http-autometric
+      port: 9090
+      protocol: TCP
+      targetPort: http-autometric
+    - name: http-usermetric
+      port: 9091
+      protocol: TCP
+      targetPort: http-usermetric
+    - name: http-queueadm
+      port: 8022
+      protocol: TCP
+      targetPort: 8022
+    selector:
+      serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-08-06T22:50:30Z"
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+    resourceVersion: "145"
+    selfLink: /api/v1/namespaces/default/services/kubernetes
+    uid: a173c570-d777-4b80-a508-d2711f3657dd
+  spec:
+    clusterIP: 10.77.0.1
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:32Z"
+    generation: 30
+    labels:
+      app: helloworld-go-2xvp8
+      service.istio.io/canonical-name: helloworld-go
+      service.istio.io/canonical-revision: helloworld-go-2xvp8
+      serving.knative.dev/configuration: helloworld-go
+      serving.knative.dev/configurationGeneration: "1"
+      serving.knative.dev/revision: helloworld-go-2xvp8
+      serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go-2xvp8-deployment
+    namespace: default
+    ownerReferences:
+    - apiVersion: serving.knative.dev/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Revision
+      name: helloworld-go-2xvp8
+      uid: c7e217e2-7975-488a-a02d-234adfe7f984
+    resourceVersion: "2555781"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/helloworld-go-2xvp8-deployment
+    uid: 872c89f5-f6aa-490a-a09d-009ee84cad03
+  spec:
+    progressDeadlineSeconds: 120
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          serving.knative.dev/creator: reanimatorzon@gmail.com
+        creationTimestamp: null
+        labels:
+          app: helloworld-go-2xvp8
+          service.istio.io/canonical-name: helloworld-go
+          service.istio.io/canonical-revision: helloworld-go-2xvp8
+          serving.knative.dev/configuration: helloworld-go
+          serving.knative.dev/configurationGeneration: "1"
+          serving.knative.dev/revision: helloworld-go-2xvp8
+          serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+          serving.knative.dev/service: helloworld-go
+      spec:
+        containers:
+        - env:
+          - name: TARGET
+            value: Go Sample v1
+          - name: PORT
+            value: "8080"
+          - name: K_REVISION
+            value: helloworld-go-2xvp8
+          - name: K_CONFIGURATION
+            value: helloworld-go
+          - name: K_SERVICE
+            value: helloworld-go
+          - name: K_INTERNAL_POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: K_INTERNAL_POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          image: index.docker.io/reanimatorzon/helloworld-go@sha256:8413f9f996840f27797ebe2e08737455c7fb96af1e0a270f74ac933cb0bf0d1d
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              httpGet:
+                path: /wait-for-drain
+                port: 8022
+                scheme: HTTP
+          name: user-container
+          ports:
+          - containerPort: 8080
+            name: user-port
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+          - mountPath: /var/log
+            name: knative-var-log
+            subPathExpr: $(K_INTERNAL_POD_NAMESPACE)_$(K_INTERNAL_POD_NAME)_user-container
+        - env:
+          - name: SERVING_NAMESPACE
+            value: default
+          - name: SERVING_SERVICE
+            value: helloworld-go
+          - name: SERVING_CONFIGURATION
+            value: helloworld-go
+          - name: SERVING_REVISION
+            value: helloworld-go-2xvp8
+          - name: QUEUE_SERVING_PORT
+            value: "8012"
+          - name: CONTAINER_CONCURRENCY
+            value: "0"
+          - name: REVISION_TIMEOUT_SECONDS
+            value: "300"
+          - name: SERVING_POD
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: SERVING_POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: SERVING_LOGGING_CONFIG
+            value: |-
+              {
+                "level": "info",
+                "development": false,
+                "outputPaths": ["stdout"],
+                "errorOutputPaths": ["stderr"],
+                "encoding": "json",
+                "encoderConfig": {
+                  "timeKey": "ts",
+                  "levelKey": "level",
+                  "nameKey": "logger",
+                  "callerKey": "caller",
+                  "messageKey": "msg",
+                  "stacktraceKey": "stacktrace",
+                  "lineEnding": "",
+                  "levelEncoder": "",
+                  "timeEncoder": "iso8601",
+                  "durationEncoder": "",
+                  "callerEncoder": ""
+                }
+              }
+          - name: SERVING_LOGGING_LEVEL
+          - name: SERVING_REQUEST_LOG_TEMPLATE
+          - name: SERVING_REQUEST_METRICS_BACKEND
+            value: prometheus
+          - name: TRACING_CONFIG_BACKEND
+            value: none
+          - name: TRACING_CONFIG_ZIPKIN_ENDPOINT
+          - name: TRACING_CONFIG_STACKDRIVER_PROJECT_ID
+          - name: TRACING_CONFIG_DEBUG
+            value: "false"
+          - name: TRACING_CONFIG_SAMPLE_RATE
+            value: "0.1"
+          - name: USER_PORT
+            value: "8080"
+          - name: SYSTEM_NAMESPACE
+            value: knative-serving
+          - name: METRICS_DOMAIN
+            value: knative.dev/internal/serving
+          - name: SERVING_READINESS_PROBE
+            value: '{"tcpSocket":{"port":8080,"host":"127.0.0.1"},"successThreshold":1}'
+          - name: ENABLE_PROFILING
+            value: "false"
+          - name: SERVING_ENABLE_PROBE_REQUEST_LOG
+            value: "false"
+          image: gcr.io/knative-releases/knative.dev/serving/cmd/queue@sha256:ab38418f2e13dfc21d48c64af0589f4eae5c40fc34a5e02f48b24b7156391d22
+          imagePullPolicy: IfNotPresent
+          name: queue-proxy
+          ports:
+          - containerPort: 8022
+            name: http-queueadm
+            protocol: TCP
+          - containerPort: 9090
+            name: http-autometric
+            protocol: TCP
+          - containerPort: 9091
+            name: http-usermetric
+            protocol: TCP
+          - containerPort: 8012
+            name: queue-port
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /ko-app/queue
+              - -probe-period
+              - "0"
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources:
+            requests:
+              cpu: 25m
+          securityContext:
+            allowPrivilegeEscalation: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 300
+        volumes:
+        - emptyDir: {}
+          name: knative-var-log
+  status:
+    conditions:
+    - lastTransitionTime: "2020-08-07T12:43:32Z"
+      lastUpdateTime: "2020-08-07T12:43:52Z"
+      message: ReplicaSet "helloworld-go-2xvp8-deployment-74794ffd9b" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-08-12T09:44:54Z"
+      lastUpdateTime: "2020-08-12T09:44:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 30
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"operator.knative.dev/release":"devel"},"name":"knative-operator","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"name":"knative-operator"}},"template":{"metadata":{"annotations":{"sidecar.istio.io/inject":"false"},"labels":{"name":"knative-operator"}},"spec":{"containers":[{"env":[{"name":"POD_NAME","valueFrom":{"fieldRef":{"fieldPath":"metadata.name"}}},{"name":"SYSTEM_NAMESPACE","valueFrom":{"fieldRef":{"fieldPath":"metadata.namespace"}}},{"name":"METRICS_DOMAIN","value":"knative.dev/operator"},{"name":"CONFIG_LOGGING_NAME","value":"config-logging"},{"name":"CONFIG_OBSERVABILITY_NAME","value":"config-observability"}],"image":"gcr.io/knative-releases/knative.dev/operator/cmd/operator@sha256:1aeef5503064204db1e8252dfd8d80eda46ce5d2ddb33998a6c6e19f5bb7a479","imagePullPolicy":"IfNotPresent","name":"knative-operator","ports":[{"containerPort":9090,"name":"metrics"}]}],"serviceAccountName":"knative-operator"}}}}
+    creationTimestamp: "2020-08-07T10:58:57Z"
+    generation: 1
+    labels:
+      operator.knative.dev/release: devel
+    name: knative-operator
+    namespace: default
+    resourceVersion: "258050"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/knative-operator
+    uid: 84b94a81-c446-4ab3-8f16-2364d378ad71
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        name: knative-operator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+        creationTimestamp: null
+        labels:
+          name: knative-operator
+      spec:
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: SYSTEM_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: METRICS_DOMAIN
+            value: knative.dev/operator
+          - name: CONFIG_LOGGING_NAME
+            value: config-logging
+          - name: CONFIG_OBSERVABILITY_NAME
+            value: config-observability
+          image: gcr.io/knative-releases/knative.dev/operator/cmd/operator@sha256:1aeef5503064204db1e8252dfd8d80eda46ce5d2ddb33998a6c6e19f5bb7a479
+          imagePullPolicy: IfNotPresent
+          name: knative-operator
+          ports:
+          - containerPort: 9090
+            name: metrics
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: knative-operator
+        serviceAccountName: knative-operator
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-08-07T10:58:57Z"
+      lastUpdateTime: "2020-08-07T10:59:04Z"
+      message: ReplicaSet "knative-operator-d75c6c56f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-08-07T12:47:33Z"
+      lastUpdateTime: "2020-08-07T12:47:33Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "0"
+      deployment.kubernetes.io/max-replicas: "0"
+      deployment.kubernetes.io/revision: "1"
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:32Z"
+    generation: 30
+    labels:
+      app: helloworld-go-2xvp8
+      pod-template-hash: 74794ffd9b
+      service.istio.io/canonical-name: helloworld-go
+      service.istio.io/canonical-revision: helloworld-go-2xvp8
+      serving.knative.dev/configuration: helloworld-go
+      serving.knative.dev/configurationGeneration: "1"
+      serving.knative.dev/revision: helloworld-go-2xvp8
+      serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go-2xvp8-deployment-74794ffd9b
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: helloworld-go-2xvp8-deployment
+      uid: 872c89f5-f6aa-490a-a09d-009ee84cad03
+    resourceVersion: "2555778"
+    selfLink: /apis/apps/v1/namespaces/default/replicasets/helloworld-go-2xvp8-deployment-74794ffd9b
+    uid: 501530e1-7038-44be-9b42-8f7300995fd2
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 74794ffd9b
+        serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+    template:
+      metadata:
+        annotations:
+          serving.knative.dev/creator: reanimatorzon@gmail.com
+        creationTimestamp: null
+        labels:
+          app: helloworld-go-2xvp8
+          pod-template-hash: 74794ffd9b
+          service.istio.io/canonical-name: helloworld-go
+          service.istio.io/canonical-revision: helloworld-go-2xvp8
+          serving.knative.dev/configuration: helloworld-go
+          serving.knative.dev/configurationGeneration: "1"
+          serving.knative.dev/revision: helloworld-go-2xvp8
+          serving.knative.dev/revisionUID: c7e217e2-7975-488a-a02d-234adfe7f984
+          serving.knative.dev/service: helloworld-go
+      spec:
+        containers:
+        - env:
+          - name: TARGET
+            value: Go Sample v1
+          - name: PORT
+            value: "8080"
+          - name: K_REVISION
+            value: helloworld-go-2xvp8
+          - name: K_CONFIGURATION
+            value: helloworld-go
+          - name: K_SERVICE
+            value: helloworld-go
+          - name: K_INTERNAL_POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: K_INTERNAL_POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          image: index.docker.io/reanimatorzon/helloworld-go@sha256:8413f9f996840f27797ebe2e08737455c7fb96af1e0a270f74ac933cb0bf0d1d
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              httpGet:
+                path: /wait-for-drain
+                port: 8022
+                scheme: HTTP
+          name: user-container
+          ports:
+          - containerPort: 8080
+            name: user-port
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+          - mountPath: /var/log
+            name: knative-var-log
+            subPathExpr: $(K_INTERNAL_POD_NAMESPACE)_$(K_INTERNAL_POD_NAME)_user-container
+        - env:
+          - name: SERVING_NAMESPACE
+            value: default
+          - name: SERVING_SERVICE
+            value: helloworld-go
+          - name: SERVING_CONFIGURATION
+            value: helloworld-go
+          - name: SERVING_REVISION
+            value: helloworld-go-2xvp8
+          - name: QUEUE_SERVING_PORT
+            value: "8012"
+          - name: CONTAINER_CONCURRENCY
+            value: "0"
+          - name: REVISION_TIMEOUT_SECONDS
+            value: "300"
+          - name: SERVING_POD
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: SERVING_POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: SERVING_LOGGING_CONFIG
+            value: |-
+              {
+                "level": "info",
+                "development": false,
+                "outputPaths": ["stdout"],
+                "errorOutputPaths": ["stderr"],
+                "encoding": "json",
+                "encoderConfig": {
+                  "timeKey": "ts",
+                  "levelKey": "level",
+                  "nameKey": "logger",
+                  "callerKey": "caller",
+                  "messageKey": "msg",
+                  "stacktraceKey": "stacktrace",
+                  "lineEnding": "",
+                  "levelEncoder": "",
+                  "timeEncoder": "iso8601",
+                  "durationEncoder": "",
+                  "callerEncoder": ""
+                }
+              }
+          - name: SERVING_LOGGING_LEVEL
+          - name: SERVING_REQUEST_LOG_TEMPLATE
+          - name: SERVING_REQUEST_METRICS_BACKEND
+            value: prometheus
+          - name: TRACING_CONFIG_BACKEND
+            value: none
+          - name: TRACING_CONFIG_ZIPKIN_ENDPOINT
+          - name: TRACING_CONFIG_STACKDRIVER_PROJECT_ID
+          - name: TRACING_CONFIG_DEBUG
+            value: "false"
+          - name: TRACING_CONFIG_SAMPLE_RATE
+            value: "0.1"
+          - name: USER_PORT
+            value: "8080"
+          - name: SYSTEM_NAMESPACE
+            value: knative-serving
+          - name: METRICS_DOMAIN
+            value: knative.dev/internal/serving
+          - name: SERVING_READINESS_PROBE
+            value: '{"tcpSocket":{"port":8080,"host":"127.0.0.1"},"successThreshold":1}'
+          - name: ENABLE_PROFILING
+            value: "false"
+          - name: SERVING_ENABLE_PROBE_REQUEST_LOG
+            value: "false"
+          image: gcr.io/knative-releases/knative.dev/serving/cmd/queue@sha256:ab38418f2e13dfc21d48c64af0589f4eae5c40fc34a5e02f48b24b7156391d22
+          imagePullPolicy: IfNotPresent
+          name: queue-proxy
+          ports:
+          - containerPort: 8022
+            name: http-queueadm
+            protocol: TCP
+          - containerPort: 9090
+            name: http-autometric
+            protocol: TCP
+          - containerPort: 9091
+            name: http-usermetric
+            protocol: TCP
+          - containerPort: 8012
+            name: queue-port
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /ko-app/queue
+              - -probe-period
+              - "0"
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources:
+            requests:
+              cpu: 25m
+          securityContext:
+            allowPrivilegeEscalation: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 300
+        volumes:
+        - emptyDir: {}
+          name: knative-var-log
+  status:
+    observedGeneration: 30
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2020-08-07T10:58:57Z"
+    generation: 1
+    labels:
+      name: knative-operator
+      pod-template-hash: d75c6c56f
+    name: knative-operator-d75c6c56f
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: knative-operator
+      uid: 84b94a81-c446-4ab3-8f16-2364d378ad71
+    resourceVersion: "258049"
+    selfLink: /apis/apps/v1/namespaces/default/replicasets/knative-operator-d75c6c56f
+    uid: 616cc3a2-d06d-4ccc-aebd-ac181fea591d
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        name: knative-operator
+        pod-template-hash: d75c6c56f
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+        creationTimestamp: null
+        labels:
+          name: knative-operator
+          pod-template-hash: d75c6c56f
+      spec:
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: SYSTEM_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: METRICS_DOMAIN
+            value: knative.dev/operator
+          - name: CONFIG_LOGGING_NAME
+            value: config-logging
+          - name: CONFIG_OBSERVABILITY_NAME
+            value: config-observability
+          image: gcr.io/knative-releases/knative.dev/operator/cmd/operator@sha256:1aeef5503064204db1e8252dfd8d80eda46ce5d2ddb33998a6c6e19f5bb7a479
+          imagePullPolicy: IfNotPresent
+          name: knative-operator
+          ports:
+          - containerPort: 9090
+            name: metrics
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: knative-operator
+        serviceAccountName: knative-operator
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: serving.knative.dev/v1
+  kind: Configuration
+  metadata:
+    annotations:
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+      serving.knative.dev/lastModifier: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:29Z"
+    generation: 1
+    labels:
+      serving.knative.dev/route: helloworld-go
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go
+    namespace: default
+    ownerReferences:
+    - apiVersion: serving.knative.dev/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Service
+      name: helloworld-go
+      uid: afc94bc7-0459-45f4-a5dc-90619ff0e239
+    resourceVersion: "256672"
+    selfLink: /apis/serving.knative.dev/v1/namespaces/default/configurations/helloworld-go
+    uid: d9ba32cc-af45-421d-a468-ccbab7a52f20
+  spec:
+    template:
+      metadata:
+        creationTimestamp: null
+      spec:
+        containerConcurrency: 0
+        containers:
+        - env:
+          - name: TARGET
+            value: Go Sample v1
+          image: docker.io/reanimatorzon/helloworld-go
+          name: user-container
+          readinessProbe:
+            successThreshold: 1
+            tcpSocket:
+              port: 0
+          resources: {}
+        timeoutSeconds: 300
+  status:
+    conditions:
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      status: "True"
+      type: Ready
+    latestCreatedRevisionName: helloworld-go-2xvp8
+    latestReadyRevisionName: helloworld-go-2xvp8
+    observedGeneration: 1
+- apiVersion: serving.knative.dev/v1
+  kind: Revision
+  metadata:
+    annotations:
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+      serving.knative.dev/lastPinned: "1597247480"
+    creationTimestamp: "2020-08-07T12:43:29Z"
+    generateName: helloworld-go-
+    generation: 1
+    labels:
+      serving.knative.dev/configuration: helloworld-go
+      serving.knative.dev/configurationGeneration: "1"
+      serving.knative.dev/route: helloworld-go
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go-2xvp8
+    namespace: default
+    ownerReferences:
+    - apiVersion: serving.knative.dev/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Configuration
+      name: helloworld-go
+      uid: d9ba32cc-af45-421d-a468-ccbab7a52f20
+    resourceVersion: "2675311"
+    selfLink: /apis/serving.knative.dev/v1/namespaces/default/revisions/helloworld-go-2xvp8
+    uid: c7e217e2-7975-488a-a02d-234adfe7f984
+  spec:
+    containerConcurrency: 0
+    containers:
+    - env:
+      - name: TARGET
+        value: Go Sample v1
+      image: docker.io/reanimatorzon/helloworld-go
+      name: user-container
+      readinessProbe:
+        successThreshold: 1
+        tcpSocket:
+          port: 0
+      resources: {}
+    timeoutSeconds: 300
+  status:
+    conditions:
+    - lastTransitionTime: "2020-08-12T09:46:00Z"
+      message: The target is not receiving traffic.
+      reason: NoTraffic
+      severity: Info
+      status: "False"
+      type: Active
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      status: "True"
+      type: ContainerHealthy
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      status: "True"
+      type: Ready
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      status: "True"
+      type: ResourcesAvailable
+    containerStatuses:
+    - imageDigest: index.docker.io/reanimatorzon/helloworld-go@sha256:8413f9f996840f27797ebe2e08737455c7fb96af1e0a270f74ac933cb0bf0d1d
+      name: user-container
+    imageDigest: index.docker.io/reanimatorzon/helloworld-go@sha256:8413f9f996840f27797ebe2e08737455c7fb96af1e0a270f74ac933cb0bf0d1d
+    logUrl: http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.knative-dev%2FrevisionUID:(query:'c7e217e2-7975-488a-a02d-234adfe7f984',type:phrase))))
+    observedGeneration: 1
+    serviceName: helloworld-go-2xvp8
+- apiVersion: serving.knative.dev/v1
+  kind: Route
+  metadata:
+    annotations:
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+      serving.knative.dev/lastModifier: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:29Z"
+    finalizers:
+    - routes.serving.knative.dev
+    generation: 1
+    labels:
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go
+    namespace: default
+    ownerReferences:
+    - apiVersion: serving.knative.dev/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Service
+      name: helloworld-go
+      uid: afc94bc7-0459-45f4-a5dc-90619ff0e239
+    resourceVersion: "299785"
+    selfLink: /apis/serving.knative.dev/v1/namespaces/default/routes/helloworld-go
+    uid: 7532e3ec-bfe7-4896-8315-29487201b280
+  spec:
+    traffic:
+    - configurationName: helloworld-go
+      latestRevision: true
+      percent: 100
+  status:
+    address:
+      url: http://helloworld-go.default.svc.cluster.local
+    conditions:
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      status: "True"
+      type: AllTrafficAssigned
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      message: autoTLS is not enabled
+      reason: TLSNotEnabled
+      status: "True"
+      type: CertificateProvisioned
+    - lastTransitionTime: "2020-08-07T14:50:47Z"
+      status: "True"
+      type: IngressReady
+    - lastTransitionTime: "2020-08-07T14:50:47Z"
+      status: "True"
+      type: Ready
+    observedGeneration: 1
+    traffic:
+    - latestRevision: true
+      percent: 100
+      revisionName: helloworld-go-2xvp8
+    url: http://helloworld-go.default.kubik.ga
+- apiVersion: serving.knative.dev/v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"serving.knative.dev/v1","kind":"Service","metadata":{"annotations":{},"name":"helloworld-go","namespace":"default"},"spec":{"template":{"spec":{"containers":[{"env":[{"name":"TARGET","value":"Go Sample v1"}],"image":"docker.io/reanimatorzon/helloworld-go"}]}}}}
+      serving.knative.dev/creator: reanimatorzon@gmail.com
+      serving.knative.dev/lastModifier: reanimatorzon@gmail.com
+    creationTimestamp: "2020-08-07T12:43:30Z"
+    generation: 1
+    name: helloworld-go
+    namespace: default
+    resourceVersion: "299786"
+    selfLink: /apis/serving.knative.dev/v1/namespaces/default/services/helloworld-go
+    uid: afc94bc7-0459-45f4-a5dc-90619ff0e239
+  spec:
+    template:
+      metadata:
+        creationTimestamp: null
+      spec:
+        containerConcurrency: 0
+        containers:
+        - env:
+          - name: TARGET
+            value: Go Sample v1
+          image: docker.io/reanimatorzon/helloworld-go
+          name: user-container
+          readinessProbe:
+            successThreshold: 1
+            tcpSocket:
+              port: 0
+          resources: {}
+        timeoutSeconds: 300
+    traffic:
+    - latestRevision: true
+      percent: 100
+  status:
+    address:
+      url: http://helloworld-go.default.svc.cluster.local
+    conditions:
+    - lastTransitionTime: "2020-08-07T12:43:52Z"
+      status: "True"
+      type: ConfigurationsReady
+    - lastTransitionTime: "2020-08-07T14:50:47Z"
+      status: "True"
+      type: Ready
+    - lastTransitionTime: "2020-08-07T14:50:47Z"
+      status: "True"
+      type: RoutesReady
+    latestCreatedRevisionName: helloworld-go-2xvp8
+    latestReadyRevisionName: helloworld-go-2xvp8
+    observedGeneration: 1
+    traffic:
+    - latestRevision: true
+      percent: 100
+      revisionName: helloworld-go-2xvp8
+    url: http://helloworld-go.default.kubik.ga
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
